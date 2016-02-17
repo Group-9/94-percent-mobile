@@ -31,10 +31,10 @@ angular.module('quizApp', ['ionic', 'quizApp.controllers'])
   $stateProvider.state('level', {
     url: '/',
     controller: 'LevelCtrl',
-    templateUrl: '../templates/level.html'
+    templateUrl: 'templates/level.html'
   })
   .state('question', {
     url: '/question',
-    templateUrl: '../templates/question.html'
+    templateUrl: 'templates/question.html'
   });
 });
