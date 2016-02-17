@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic'])
+angular.module('quizApp', ['ionic', 'quizApp.controllers'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -20,5 +20,21 @@ angular.module('starter', ['ionic'])
     if(window.StatusBar) {
       StatusBar.styleDefault();
     }
+  });
+})
+.constant('config', {
+  BACKEND_URL: 'https://secret-meadow-36525.herokuapp.com'
+})
+.config(function($stateProvider, $urlRouterProvider) {
+  $urlRouterProvider.otherwise('/');
+
+  $stateProvider.state('level', {
+    url: '/',
+    controller: 'LevelCtrl',
+    templateUrl: '../templates/level.html'
+  })
+  .state('question', {
+    url: '/question',
+    templateUrl: '../templates/question.html'
   });
 });
