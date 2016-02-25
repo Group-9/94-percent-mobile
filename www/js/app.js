@@ -28,13 +28,27 @@ angular.module('quizApp', ['ionic', 'quizApp.controllers'])
 .config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/');
 
-  $stateProvider.state('level', {
+  $stateProvider.state('start', {
     url: '/',
+    templateUrl: 'templates/start.html'
+  })
+  .state('info', {
+    url: '/info',
+    templateUrl: 'templates/info.html'
+  })
+  .state('level', {
+    url: '/level',
     controller: 'LevelCtrl',
     templateUrl: 'templates/level.html'
   })
   .state('question', {
     url: '/question',
+    //controller: 'questionCtrl',
     templateUrl: 'templates/question.html'
+  })
+  .state('loadQ', {
+    url: '/loadQ',
+    //controller: 'loadQCtrl',
+    templateUrl: 'templates/loadQ.html'
   });
 });

@@ -1,7 +1,18 @@
-<h1>This is a question</h1>
-<ion-list>
-
-  <ion-item>Hi</ion-item>
-  <ion-item>Hello</ion-item>
-  <ion-item>Great</ion-item>
-</ion-list>
+<ion-view title="Select a Question">
+  <ion-content>
+    <ion-list>
+      <!--<button ng-repeat="question in questions" class="button button-stable button-full" ui-sref="question">
+        Question {{question.id + 1}}
+      </button>-->
+      <button class="button button-stable button-full" ui-sref="loadQ">
+        Question 1
+      </button>
+      <button class="button button-stable button-full" ui-sref="loadQ">
+        Question 2
+      </button>
+      <button class="button button-stable button-full" ui-sref="loadQ">
+        Question 3
+      </button>
+    </ion-list>
+  </ion-content>
+</ion-view>
