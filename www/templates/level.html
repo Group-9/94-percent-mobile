@@ -1,7 +1,7 @@
 <ion-view title="Select a Level">
   <ion-content>
     <ion-list>
-      <ion-item ng-repeat="level in levels" class="item item-icon-right">
+      <ion-item ng-repeat="level in levels" ui-sref="question(level)">
         Level {{level.number}}
       </ion-item>
     </ion-list>
