@@ -42,13 +42,16 @@ angular.module('quizApp', ['ionic', 'quizApp.controllers'])
     templateUrl: 'templates/level.html'
   })
   .state('question', {
-    url: '/question',
-    //controller: 'questionCtrl',
+    url: '/question/',
+    controller: 'questionCtrl',
+    params: {questions: []},
     templateUrl: 'templates/question.html'
   })
   .state('loadQ', {
-    url: '/loadQ',
-    //controller: 'loadQCtrl',
+    url: '/loadQ/:id',
+    controller: 'loadQCtrl',
     templateUrl: 'templates/loadQ.html'
   });
 });
+
+angular.module('quizApp.controllers', []);
