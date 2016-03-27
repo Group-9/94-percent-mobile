@@ -23,7 +23,7 @@ angular.module('quizApp', ['ionic', 'quizApp.controllers'])
   });
 })
 .constant('config', {
-  BACKEND_URL: 'https://secret-meadow-36525.herokuapp.com'
+  BACKEND_URL: 'https://sheltered-everglades-86330.herokuapp.com'//'https://secret-meadow-36525.herokuapp.com' //'https://sheltered-everglades-86330.herokuapp.com'
 })
 .config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/');
@@ -34,6 +34,7 @@ angular.module('quizApp', ['ionic', 'quizApp.controllers'])
   })
   .state('info', {
     url: '/info',
+    controller: 'infoCtrl',
     templateUrl: 'templates/info.html'
   })
   .state('level', {
