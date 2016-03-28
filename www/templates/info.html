@@ -5,11 +5,11 @@
         <div class="input-label">
           Age
         </div>
-      <input type="number" pattern="[0-9]*" ng-model="age">
+        <input type="number" pattern="[0-9]*" ng-model="age" style="text-align: right">
       </label>
       <label class="item item-input item-select">
-        <div class="input-label" >
-              Gender
+        <div class="input-label">
+          Gender
         </div>
         <select ng-model="gender">
           <option value="0" selected>Male</option>
@@ -19,7 +19,7 @@
       </label>
       <label class="item item-input item-select">
         <div class="input-label">
-              Education
+          Education
         </div>
         <select ng-model="education">
           <option value="0" selected>None</option>
@@ -33,7 +33,7 @@
       </label>
       <label class="item item-input item-select">
         <div class="input-label">
-              Employment Status
+          Employment Status
         </div>
         <select ng-model="employment_status">
           <option value="0" selected>Student</option>
@@ -42,6 +42,6 @@
         </select>
       </label>
     </div>
-    <button class="button button-royal button-block" ng-click="submit(age, gender, education, employment_status)">Start the Game!</button>
+    <button class="button button-royal button-full" ng-click="submit(age, gender, education, employment_status)">Start the Game!</button>
   </ion-content>
 </ion-view title>
