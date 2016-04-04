@@ -2,6 +2,7 @@ var globalAns;          //used for local storage id later
 var params;             //used for local storage id later
 angular.module('quizApp.controllers')
   .controller('loadQCtrl', function($scope, $http, $stateParams, $ionicPopup, config) {
+
     params = $stateParams.id;                                                                               
   	$http.get(config.BACKEND_URL + '/question/' + $stateParams.id).then(function(resp) {
     $scope.question = resp.data;
@@ -9,7 +10,8 @@ angular.module('quizApp.controllers')
 
     if(window.localStorage['question' + $stateParams.id] != 1){         //if first time visiting the question
       for (var key in answers) {
-          answers[key].completed = false;             //sets boolean for correct answer to false
+          console.log($scope.question.answers[key].completed);
+          $scope.question.answers[key].completed = false;             //sets boolean for correct answer to false
           window.localStorage['answer' + $stateParams.id + '.' + answers[key].id] = answers[key].completed;       //stores to local storage to save progress
       }
     } else{
@@ -46,17 +48,18 @@ angular.module('quizApp.controllers')
       });
   
       myPopup.then(function(answer) {
-      $http.post(config.BACKEND_URL + '/createEntry', {       //submits user answer to server with following params
+      /*$http.post(config.BACKEND_URL + '/createEntry', {       //submits user answer to server with following params
       question_id: $stateParams.id,
       user_id: window.localStorage['userID'],
       text: answer
-    });   
+    }); */  
       window.localStorage['question' + $stateParams.id] = 1;        //sets it so popup can't appear again as question is visited
       });    
     }
         globalAns = answers;          //used for local storage id
 
 	});
+  //localStorage.clear();
 });
 
 
