@@ -1,7 +1,7 @@
 <ion-view title="Select a Question">
   <ion-content>
     <ion-list>
-      <ion-item ng-repeat="question in questions" ui-sref="loadQ({id: question.id})">
+      <ion-item ng-repeat="question in questions" ui-sref="loadQ({id: question.id})" >
         {{question.text}}
       </ion-item>
     </ion-list>

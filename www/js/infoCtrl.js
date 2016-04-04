@@ -10,10 +10,9 @@ angular.module('quizApp.controllers')
 			gender: gender,
 			education: education,
 			employment_status: employment_status
-    })
-    .then(function(resp){
-			console.log(resp.data.id);
-			$scope.userID = resp.data.id;
+    }).then(function(resp){				//receives user id from server
+      $scope.userID = resp.data.id;
+			window.localStorage['userID'] = resp.data.id;				//stores user id in local storage
 		}, function(resp) {
 
     });
