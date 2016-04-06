@@ -3,12 +3,15 @@
   <ion-content>
     <ion-list>
       <ion-item ng-repeat="answer in question.answers">
-        {{answer.text}} {{answer.percent}}%
+        <!-- if answer has been guessed correctly -->
+        <span ng-if="answer.completed">{{answer.text}} {{answer.percent}}%</span>
+        <!-- if answer has not been guessed yet -->
+        <span ng-if="!answer.completed">??? {{answer.percent}}%</span>
       </ion-item>
     </ion-list>
     <label class="item item-input">
       <span class="input-label">Answer</span>
-      <input type="text">
+      <input type="text" ng-keypress="checkAnswer($event)" id="answer" ng-model="data.guess">
     </label>
   </ion-content>
 </ion-view>
