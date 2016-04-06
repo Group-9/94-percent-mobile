@@ -27,9 +27,9 @@ angular.module('quizApp', ['ionic', 'quizApp.controllers'])
 })
 .config(function($stateProvider, $urlRouterProvider) {
   var initState;
-  if(window.localStorage['userID'] % 1 === 0){
+  if (window.localStorage.userID) {
     initState = 'level';
-  } else{
+  } else {
     initState = '/';
   }
   $urlRouterProvider.otherwise(initState);

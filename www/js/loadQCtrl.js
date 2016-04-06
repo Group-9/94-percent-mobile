@@ -1,82 +1,75 @@
-var globalAns;          //used for local storage id later
-var params;             //used for local storage id later
 angular.module('quizApp.controllers')
-  .controller('loadQCtrl', function($scope, $http, $stateParams, $ionicPopup, config) {
+.controller('loadQCtrl', function($scope, $http, $stateParams, $ionicPopup, config) {
+  var answers;
 
-    params = $stateParams.id;                                                                               
-  	$http.get(config.BACKEND_URL + '/question/' + $stateParams.id).then(function(resp) {
+  $http.get(config.BACKEND_URL + '/question/' + $stateParams.id).then(function(resp) {
     $scope.question = resp.data;
-    var answers = $scope.question.answers;
+    answers = $scope.question.answers;
 
-    if(window.localStorage['question' + $stateParams.id] != 1){         //if first time visiting the question
-      for (var key in answers) {
-          console.log($scope.question.answers[key].completed);
-          $scope.question.answers[key].completed = false;             //sets boolean for correct answer to false
-          window.localStorage['answer' + $stateParams.id + '.' + answers[key].id] = answers[key].completed;       //stores to local storage to save progress
+    // if first time visiting the question
+    if (window.localStorage['question' + $stateParams.id] != 1){
+      for (var i = 0; i < answers.length; i++) {
+        // sets boolean for correct answer to false
+        answers[i].completed = false;
+        // stores to local storage to save progress
+        window.localStorage['answer' + $stateParams.id + '.' + answers[i].id] = answers[i].completed;
       }
-    } else{
-      for(var key in answers){
-        answers[key].completed = window.localStorage['answer' + $stateParams.id + '.' + answers[key].id];       //if already visited question, loads up previous progress
+    } else {
+      for (var i = 0; i < answers.length; i++) {
+        // if already visited question, loads up previous progress
+        answers[i].completed = JSON.parse(window.localStorage['answer' + $stateParams.id + '.' + answers[i].id]);
       }
     }
 
-
-      $scope.data = {}
-      // Custom popup
-      if(window.localStorage['question' + $stateParams.id] != 1){              //if question has not been visited before pop up appears, if it has popup doesn't appear
+    $scope.data = {};
+    // Custom popup
+    // if question has not been visited before pop up appears, if it has popup doesn't appear
+    if (window.localStorage['question' + $stateParams.id] != 1) {
       var myPopup = $ionicPopup.show({
-         template: '<input type = "text" ng-model = "data.model">',
-         title: 'How would you answer this question?',
-         subTitle: $scope.question.text,
-         scope: $scope,
-      
-         buttons: [
-         {  
-          text: 'Submit',
-               type: 'button-royal',
-                  onTap: function(e) {
-            
-                     if (!$scope.data.model) {
-                        //don't allow the user to close unless he enters model...
-                           e.preventDefault();
-                     } else {
-                        return $scope.data.model;
-                     }
-                  }
+        template: '<input type="text" ng-model="data.surveyAnswer">',
+        title: 'How would you answer this question?',
+        subTitle: $scope.question.text,
+        scope: $scope,
+
+        buttons: [
+          {
+            text: 'Submit',
+            type: 'button-royal',
+            onTap: function(e) {
+              if (!$scope.data.surveyAnswer) {
+                // don't allow the user to close unless he enters answer...
+                e.preventDefault();
+              } else {
+                return $scope.data.surveyAnswer;
+              }
             }
-         ]
-      });
-  
-      myPopup.then(function(answer) {
-      /*$http.post(config.BACKEND_URL + '/createEntry', {       //submits user answer to server with following params
-      question_id: $stateParams.id,
-      user_id: window.localStorage['userID'],
-      text: answer
-    }); */  
-      window.localStorage['question' + $stateParams.id] = 1;        //sets it so popup can't appear again as question is visited
-      });    
-    }
-        globalAns = answers;          //used for local storage id
-
-	});
-  //localStorage.clear();
-});
-
-
-  function runScript(e) {
-    if (e.keyCode == 13 && document.getElementById('answer').value != '') {       //if enter is pressed and null is not entered
-        var guess = document.getElementById('answer');
-        var ans= guess.value;         //gets value of the guess
-        for(var key in globalAns){
-          if(ans == globalAns[key].text){         //if guess matches with one of the answers
-            globalAns[key].completed = true;    
-            window.localStorage['answer' + params + '.' + globalAns[key].id] = true;        //set value to true so that we know user got answer correct
-            location.reload();        //reload page to update answers
           }
-        }
-        document.getElementById('answer').value = "";       //resets input field to null
-        return false;
+        ]
+      });
+
+      myPopup.then(function(answer) {
+        // submits user answer to server with following params
+        $http.post(config.BACKEND_URL + '/createEntry', {
+         question_id: $stateParams.id,
+         user_id: window.localStorage.userID,
+         text: answer
+        });
+        window.localStorage['question' + $stateParams.id] = 1;
+        // sets it so popup can't appear again as question is visited
+      });
     }
-    return true;
-}
-  
+  });
+
+  $scope.checkAnswer = function(event) {
+    if (event.keyCode === 13 && $scope.data.guess) {
+
+      for (var i = 0; i < answers.length; i++) {
+        if ($scope.data.guess.toLowerCase() === answers[i].text.toLowerCase()) {
+          answers[i].completed = true;
+          window.localStorage['answer' + $stateParams.id + '.' + answers[i].id] = true;
+        }
+      }
+      $scope.data.guess = '';
+    }
+  };
+});
