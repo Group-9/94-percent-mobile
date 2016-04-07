@@ -1,25 +1,31 @@
-Ionic App Base
+94 Percent Mobile Game
 =====================
 
-A starting project for Ionic that optionally supports using custom SCSS.
-
-## Using this project
-
-We recommend using the [Ionic CLI](https://github.com/driftyco/ionic-cli) to create new Ionic projects that are based on this project but use a ready-made starter template.
-
-For example, to start a new Ionic project with the default tabs interface, make sure the `ionic` utility is installed:
-
+## Installing Dependencies
+* First install [Node.js](https://nodejs.org/en/). Ionic does not yet support Node 5 so download Node 4.
+* Next run the following to install the Ionic command line tools:
 ```bash
-$ npm install -g ionic
+$ npm install -g cordova ionic
+```
+* You will also need the Android SDK. This is easily installed using [Android Studio](https://developer.android.com/sdk/index.html).
+
+## Running the App in a Browser
+Ionic lets you run your app in the browser while developing and testing. The app will automatically reload when the code changes.
+```bash
+$ ionic serve
 ```
 
-Then run:
-
+## Running the App on an Android Emulator
 ```bash
-$ ionic start myProject tabs
+$ ionic platform add android
+$ ionic emulate android
 ```
 
-More info on this can be found on the Ionic [Getting Started](http://ionicframework.com/getting-started) page and the [Ionic CLI](https://github.com/driftyco/ionic-cli) repo.
+## Building the App for Release
 
-## Issues
-Issues have been disabled on this repo, if you do find an issue or have a question consider posting it on the [Ionic Forum](http://forum.ionicframework.com/).  Or else if there is truly an error, follow our guidelines for [submitting an issue](http://ionicframework.com/submit-issue/) to the main Ionic repository.
+```bash
+$ ionic platform add android
+$ ionic build --release android
+```
+The output APK will be placed in `platforms/android/build/outputs/apk/android-release-unsigned.apk`.  
+This APK can be submitted to the Google Play Store by creating a Google Play [developer account](https://play.google.com/apps/publish/).
